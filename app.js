@@ -6,6 +6,8 @@
   const bySlug = Object.fromEntries(items.map((it) => [it.slug, it]));
   const aiSamples = window.AI_SAMPLES || [];
   const aiById = Object.fromEntries(aiSamples.map((s) => [s.id, s]));
+  const articles = window.ARTICLE_SAMPLES || [];
+  const articleById = Object.fromEntries(articles.map((a) => [a.id, a]));
 
   const img = {
     site: (it) => `assets/web/${it.slug}.jpg`,
@@ -13,7 +15,7 @@
     docCover: (it) => `assets/docs/${it.slug}/cover_s.jpg`,
     card: (it, key) => `assets/cards/${it.slug}/${key}.jpg`,
   };
-  const VIEW_LABEL = { brand: "ブランド一式", site: "Webサイト", doc: "資料", card: "名刺", ai: "AIバックオフィス" };
+  const VIEW_LABEL = { brand: "ブランド一式", site: "Webサイト", doc: "資料", card: "名刺", article: "記事", ai: "AIバックオフィス" };
 
   let view = "brand";
   let industry = "all";
@@ -90,8 +92,23 @@
     $("#count").textContent = `AIバックオフィス：${aiSamples.length}点（依頼主は架空の不動産会社「中野すまい相談室」を想定）`;
   }
 
+  function renderArticleGrid() {
+    $("#chips").hidden = true;
+    $("#grid").innerHTML = articles.map((a) => `
+      <a class="card-item" href="#article/${a.id}" aria-label="${esc(a.title)}を見る">
+        <div class="thumb ai"><span class="badge">${esc(a.chars)}</span><img loading="lazy" src="assets/articles/${a.id}.jpg" alt=""></div>
+        <div class="meta">
+          <div class="meta-top"><span>${esc(a.genre)}</span></div>
+          <h3>${esc(a.title)}</h3>
+          <p>${esc(a.client)}</p>
+        </div>
+      </a>`).join("");
+    $("#count").textContent = `記事：${articles.length}本（依頼主はすべて架空の会社・お店を想定）`;
+  }
+
   function renderGrid() {
     if (view === "ai") return renderAiGrid();
+    if (view === "article") return renderArticleGrid();
     $("#chips").hidden = false;
     const list = items.filter((it) => industry === "all" || it.industry === industry);
     const tab = { brand: "", site: "site", doc: "doc", card: "card" }[view];
@@ -257,6 +274,36 @@
     $(".modal-close").focus();
   }
 
+  function openArticle(id) {
+    const a = articleById[id];
+    if (!a) return closeModal(true);
+    if (modal.hidden) lastFocus = document.activeElement;
+    $("#modalBody").onclick = null;
+    $("#modalBody").innerHTML = `
+      <div class="m-head">
+        <div class="meta-top"><span>記事作成</span><span>${esc(a.genre)}</span><span>${esc(a.chars)}</span></div>
+        <h2 id="mTitle">${esc(a.title)}</h2>
+      </div>
+      <section class="m-sec ai-sec">
+        <h3>${esc(a.client)}</h3>
+        <p class="m-desc">${esc(a.desc)}</p>
+        <ul class="ai-points">
+          <li>想定キーワード・想定読者・読んだあとの行動を決めてから構成を作成</li>
+          <li>AIで下書きし、言い回し・具体例・事実を人が確認して仕上げ</li>
+          <li>確かめられない数字や情報は使わない</li>
+        </ul>
+        <a class="m-shot" href="samples/articles/${a.id}.html" target="_blank" rel="noopener"><img src="assets/articles/${a.id}.jpg" alt="${esc(a.title)}の画面"></a>
+        <div class="m-actions">
+          <a class="btn" href="samples/articles/${a.id}.html" target="_blank" rel="noopener">記事を読む</a>
+          <small>依頼主は架空の会社・お店です。左側に記事の設計（キーワード・読者・メタディスクリプション）を載せています。</small>
+        </div>
+      </section>`;
+    modal.hidden = false;
+    document.body.style.overflow = "hidden";
+    $(".modal-panel").scrollTop = 0;
+    $(".modal-close").focus();
+  }
+
   function closeModal(fromRoute) {
     if (modal.hidden) return;
     modal.hidden = true;
@@ -279,8 +326,10 @@
   function route() {
     const m = location.hash.match(/^#w\/([\w-]+)(?:\/(\w+))?/);
     const a = location.hash.match(/^#ai\/([\w-]+)/);
+    const ar = location.hash.match(/^#article\/([\w-]+)/);
     if (m) openModal(m[1], m[2]);
     else if (a) openAi(a[1]);
+    else if (ar) openArticle(ar[1]);
     else closeModal(true);
   }
   window.addEventListener("hashchange", route);
