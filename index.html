@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biz Studio｜Works</title>
+<meta name="description" content="Biz Studio（ビズ・スタジオ）のポートフォリオ。WordPressのWebサイト、会社紹介資料、名刺デザインを、ひとつのブランドとしてまとめて制作します。">
+<meta property="og:title" content="Biz Studio｜Works">
+<meta property="og:description" content="Webサイト・会社紹介資料・名刺を、ひとつのブランドとしてまとめて制作します。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/web/inkdot.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314171F'/%3E%3Crect x='8' y='8' width='7' height='16' fill='%23fff'/%3E%3Crect x='17' y='8' width='7' height='7' fill='%233A5BFF'/%3E%3Crect x='17' y='17' width='7' height='7' fill='%23fff'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="#top" aria-label="Biz Studio トップへ">
+      <span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="logo-text">Biz Studio</span>
+    </a>
+    <nav class="nav" aria-label="ページ内リンク">
+      <a href="#works">制作実績</a>
+      <a href="#services">できること</a>
+      <a href="#flow">ご依頼の流れ</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+    <div class="hero-inner">
+      <p class="eyebrow">Biz Studio — Portfolio</p>
+      <h1 class="hero-title">会社の「顔」を、<br><em>ひとつのデザイン</em>で<br>そろえます。</h1>
+      <p class="hero-lead">WordPressのWebサイト、会社紹介資料、名刺。<br class="pc">お客さまに見られるものを、同じ世界観でそろえて制作します。</p>
+      <dl class="stats">
+        <div><dt>制作サンプル</dt><dd><b>87</b>点</dd></div>
+        <div><dt>ブランド</dt><dd><b>29</b>社</dd></div>
+        <div><dt>業種</dt><dd><b>6</b>業種</dd></div>
+      </dl>
+    </div>
+    <div class="hero-showcase" aria-hidden="true">
+      <div class="hs-site"><img src="assets/web/inkdot.jpg" alt=""></div>
+      <div class="hs-doc"><img src="assets/docs/inkdot/cover_s.jpg" alt=""></div>
+      <div class="hs-card"><img src="assets/cards/inkdot/yoko_front.jpg" alt=""></div>
+    </div>
+    </div>
+  </section>
+
+  <section class="brandset">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Brand Set</p>
+        <h2>サイト・資料・名刺を、<br>1社ぶんまとめて。</h2>
+        <p class="section-lead">掲載している実績は、1社につき「Webサイト」「会社紹介資料」「名刺」の3点を同じブランドで作っています。色・書体・言葉づかいがそろうので、どこで見られても同じ会社だと伝わります。</p>
+      </div>
+      <div class="set-demo" id="setDemo"></div>
+    </div>
+  </section>
+
+  <section class="works" id="works">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Works</p>
+        <h2>制作実績</h2>
+      </div>
+
+      <div class="filters">
+        <div class="tabs" role="tablist" aria-label="制作物の種類">
+          <button role="tab" data-view="brand" aria-selected="true">ブランド一式</button>
+          <button role="tab" data-view="site" aria-selected="false">Webサイト</button>
+          <button role="tab" data-view="doc" aria-selected="false">資料</button>
+          <button role="tab" data-view="card" aria-selected="false">名刺</button>
+        </div>
+        <div class="chips" id="chips" aria-label="業種で絞り込む"></div>
+      </div>
+
+      <p class="result-count" id="count" aria-live="polite"></p>
+      <div class="grid" id="grid"></div>
+
+      <p class="demo-note">※ 掲載している会社・店舗・人物名・連絡先は、すべてポートフォリオ用の架空のものです。実在の企業とは関係ありません。</p>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Services</p>
+        <h2>できること</h2>
+      </div>
+      <div class="service-list">
+        <article class="service">
+          <span class="s-no">01</span>
+          <h3>Webサイト制作（WordPress）</h3>
+          <p>オリジナルテーマで制作し、お知らせやブログはWordPressの管理画面から更新できます。スマートフォン対応、お問い合わせフォーム、基本のSEO設定まで行い、更新方法の取扱説明書もお渡しします。</p>
+          <ul class="tags"><li>オリジナルテーマ</li><li>スマホ対応</li><li>フォーム設置</li><li>SEO基本設定</li></ul>
+        </article>
+        <article class="service">
+          <span class="s-no">02</span>
+          <h3>資料作成</h3>
+          <p>会社紹介、営業資料、サービス紹介、提案書、採用資料など。PowerPointで編集できる形で納品し、PDF版とアニメーション付きの版もご用意します。</p>
+          <ul class="tags"><li>PowerPoint</li><li>PDF</li><li>アニメーション付き</li><li>編集マニュアル付き</li></ul>
+        </article>
+        <article class="service">
+          <span class="s-no">03</span>
+          <h3>名刺デザイン</h3>
+          <p>横型・縦型の両方をデザインし、印刷会社にそのまま入稿できるデータ（CMYK・塗り足し・トンボ付き）で納品します。社員さま全員分の名前の差し替えもお任せください。</p>
+          <ul class="tags"><li>横型・縦型</li><li>Illustratorデータ</li><li>入稿データ</li><li>社員分の作成</li></ul>
+        </article>
+        <article class="service">
+          <span class="s-no">04</span>
+          <h3>記事作成</h3>
+          <p>ブログ、コラム、お知らせ、サービス紹介文など。読む人と検索の両方を意識して、事実を確かめながら書きます。WordPressへの投稿まで対応できます。</p>
+          <ul class="tags"><li>ブログ・コラム</li><li>SEOを意識した構成</li><li>WordPress入稿</li></ul>
+        </article>
+        <article class="service">
+          <span class="s-no">05</span>
+          <h3>データ入力</h3>
+          <p>リストの作成、Excel・スプレッドシートへの入力、表記の統一や重複の整理など。決められたルールに沿って、正確に丁寧に作業します。</p>
+          <ul class="tags"><li>Excel</li><li>Googleスプレッドシート</li><li>表記ゆれの整理</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="flow" id="flow">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Flow</p>
+        <h2>ご依頼の流れ</h2>
+      </div>
+      <ol class="flow-list">
+        <li><b>ご相談</b><span>クラウドワークスのメッセージで、作りたいもの・ご予算・ご希望の納期をお聞かせください。</span></li>
+        <li><b>お見積り</b><span>内容をうかがって、お見積りと制作スケジュールをお送りします。</span></li>
+        <li><b>制作</b><span>デザイン案をお見せしながら進めます。途中の修正もご相談ください。</span></li>
+        <li><b>納品</b><span>編集用データ・取扱説明書とあわせて納品します。納品後の小さな修正もお気軽に。</span></li>
+      </ol>
+      <div class="cta">
+        <p>サイト・資料・名刺のどれかひとつだけのご依頼も、もちろん歓迎です。</p>
+        <a class="btn" id="ctaLink" href="https://crowdworks.jp/" target="_blank" rel="noopener">クラウドワークスで相談する</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span class="logo-text">Biz Studio</span>
+    <small>© Biz Studio</small>
+  </div>
+</footer>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <button class="modal-close" data-close aria-label="閉じる">×</button>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
