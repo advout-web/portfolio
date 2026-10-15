@@ -24,7 +24,7 @@ body {
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
 button { font: inherit; color: inherit; }
-h1, h2, h3 { line-height: 1.35; margin: 0; font-weight: 700; text-wrap: balance; }
+h1, h2, h3 { line-height: 1.35; margin: 0; font-weight: 700; text-wrap: balance; word-break: auto-phrase; }
 p { margin: 0; text-wrap: pretty; }
 .wrap { width: min(1180px, 100% - 32px); margin-inline: auto; }
 .sp { display: none; }
