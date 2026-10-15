@@ -1,0 +1,59 @@
+/* AIバックオフィス見本の共通スタイル（依頼主：中野すまい相談室〔架空〕の青と白） */
+:root {
+  --ink: #16181D; --ink-2: #474C57; --muted: #7A7F8A; --line: #E2E4E9;
+  --bg: #EEF0F4; --paper: #FFFFFF; --blue: #1F4BFF; --blue-2: #E8EDFF;
+  --red: #D93A3A; --red-2: #FDECEC; --green: #12855A; --green-2: #E3F4EC; --yellow: #FFF4C2;
+  --mono: "SFMono-Regular", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  font-size: 15px; line-height: 1.85; -webkit-font-smoothing: antialiased;
+}
+.sample-bar {
+  background: var(--ink); color: #C9CDD6; font-size: 12px; padding: 8px 16px;
+  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.sample-bar a { color: #fff; }
+.sample-bar b { color: #fff; font-weight: 700; }
+.page { width: min(920px, 100% - 32px); margin: 32px auto 64px; background: var(--paper); border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 12px 32px -16px rgba(0,0,0,.18); }
+.page-inner { padding: clamp(24px, 5vw, 56px); }
+.doc-head { border-bottom: 3px solid var(--blue); padding-bottom: 20px; margin-bottom: 32px; }
+.doc-kicker { color: var(--blue); font-weight: 700; font-size: 13px; letter-spacing: .08em; }
+h1 { font-size: clamp(24px, 3.4vw, 32px); line-height: 1.35; margin: 6px 0 14px; }
+h2 { font-size: 20px; margin: 44px 0 14px; padding-left: 12px; border-left: 4px solid var(--blue); line-height: 1.4; }
+h3 { font-size: 16px; margin: 24px 0 8px; }
+p { margin: 0 0 12px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 13px; color: var(--muted); }
+.meta b { color: var(--ink-2); font-weight: 500; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 8px 0 16px; }
+th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+th { background: #F5F6F8; font-weight: 700; white-space: nowrap; }
+.table-wrap { overflow-x: auto; }
+.note { background: var(--blue-2); border-radius: 6px; padding: 14px 16px; font-size: 14px; margin: 16px 0; }
+.note b { color: var(--blue); }
+.warn { background: var(--red-2); border-radius: 6px; padding: 14px 16px; font-size: 14px; margin: 16px 0; }
+.warn b { color: var(--red); }
+.tag { display: inline-block; font-size: 11.5px; font-weight: 700; padding: 1px 8px; border-radius: 4px; background: var(--blue-2); color: var(--blue); }
+.tag.red { background: var(--red-2); color: var(--red); }
+.tag.green { background: var(--green-2); color: var(--green); }
+.tag.gray { background: #EEF0F3; color: var(--ink-2); }
+ul, ol { margin: 0 0 12px; padding-left: 1.4em; }
+li { margin: 2px 0; }
+.ai-box { margin-top: 48px; border: 1px dashed #B7C3FF; border-radius: 8px; padding: 18px 20px; font-size: 13.5px; color: var(--ink-2); background: #FAFBFF; }
+.ai-box h2 { margin-top: 0; font-size: 15px; border: 0; padding: 0; color: var(--blue); }
+.ai-box ol { margin-bottom: 0; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 720px) { .two { grid-template-columns: 1fr; } }
+.label-before, .label-after { display: inline-block; font-weight: 700; font-size: 12px; padding: 2px 10px; border-radius: 999px; margin-bottom: 10px; }
+.label-before { background: #EEF0F3; color: var(--ink-2); }
+.label-after { background: var(--blue); color: #fff; }
+pre { background: #1C1F26; color: #E6E8EE; padding: 18px 20px; border-radius: 8px; overflow-x: auto; font-family: var(--mono); font-size: 12.5px; line-height: 1.7; margin: 8px 0 16px; }
+pre .c { color: #8A93A6; } pre .s { color: #9FE0A8; } pre .k { color: #8FB0FF; }
+code { font-family: var(--mono); font-size: .92em; background: #F1F3F6; padding: 1px 5px; border-radius: 4px; }
+.foot { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+@media print {
+  body { background: #fff; } .sample-bar { display: none; }
+  .page { box-shadow: none; margin: 0; width: 100%; }
+}

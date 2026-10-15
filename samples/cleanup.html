@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>顧客リストの整理｜AIバックオフィス見本</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="doc.css">
+<style>
+  .grid-table td, .grid-table th { white-space: nowrap; font-size: 12.5px; padding: 6px 9px; }
+  .bad { background: #FFF1C9; }
+  .dup td { background: #FDECEC; }
+  .fixed { background: var(--green-2); }
+  .result { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 12px 0 8px; }
+  .result div { background: var(--blue-2); border-radius: 8px; padding: 10px 14px; font-size: 12.5px; }
+  .result b { display: block; font-size: 22px; color: var(--blue); }
+  @media (max-width: 720px) { .result { grid-template-columns: 1fr 1fr; } }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--ink-2); margin: 4px 0 8px; }
+  .legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+  .legend .l1::before { background: #FFF1C9; } .legend .l2::before { background: #FDECEC; } .legend .l3::before { background: var(--green-2); }
+</style>
+</head>
+<body>
+<div class="sample-bar"><span><b>AIバックオフィス 見本</b>｜データ整理（表記ゆれ・重複）</span><span>架空の会社を想定した見本です／<a href="../#ai/cleanup">ポートフォリオに戻る</a></span></div>
+
+<main class="page"><div class="page-inner">
+  <header class="doc-head">
+    <div class="doc-kicker">データ整理　Before / After</div>
+    <h1>バラバラの顧客リストを、<br>そのまま使える形に整える</h1>
+    <div class="meta"><span><b>元のデータ：</b>3つの担当者が別々に入力したExcel</span><span><b>この見本：</b>12件を抜き出して表示</span></div>
+    <div class="result">
+      <div><b>12→9件</b>重複をまとめた</div>
+      <div><b>15か所</b>表記をそろえた</div>
+      <div><b>2件</b>確認が必要なものに印</div>
+      <div><b>4項目</b>整理のルール</div>
+    </div>
+  </header>
+
+  <h2>整理のルール（ご担当者さまと決めた内容）</h2>
+  <ol>
+    <li><b>氏名：</b>姓と名のあいだは全角スペース1つ。ふりがなは全角ひらがな</li>
+    <li><b>電話番号：</b>半角数字で、市外局番から「-」で区切る（例：03-0000-0000）</li>
+    <li><b>住所：</b>「東京都」から書き、番地は半角数字と「-」（例：中野区中野5-1-1）</li>
+    <li><b>重複：</b>電話番号かメールアドレスが同じものは同じ人とみなし、新しい情報を残して1件にまとめる</li>
+  </ol>
+
+  <h2>Before｜元のリスト</h2>
+  <div class="legend"><span class="l1">表記がそろっていない</span><span class="l2">重複している</span></div>
+  <div class="table-wrap"><table class="grid-table">
+    <tr><th>No.</th><th>氏名</th><th>ふりがな</th><th>電話番号</th><th>住所</th><th>メール</th></tr>
+    <tr><td>1</td><td>中野 太郎</td><td>なかの たろう</td><td>090-0000-0001</td><td>東京都中野区中野5-1-1</td><td>taro@example.com</td></tr>
+    <tr><td>2</td><td class="bad">野方　花子</td><td class="bad">ノガタ ハナコ</td><td class="bad">０９０（００００）０００２</td><td class="bad">中野区野方１丁目２番３号</td><td>hanako@example.com</td></tr>
+    <tr class="dup"><td>3</td><td>中野太郎</td><td class="bad">ﾅｶﾉ ﾀﾛｳ</td><td>09000000001</td><td>東京都中野区中野5-1-1</td><td>taro@example.com</td></tr>
+    <tr><td>4</td><td>沼袋 一郎</td><td>ぬまぶくろ いちろう</td><td class="bad">03 0000 0003</td><td class="bad">東京都中野区沼袋2－4－6</td><td>ichiro@example.com</td></tr>
+    <tr><td>5</td><td class="bad">新井　葉子</td><td>あらい ようこ</td><td>080-0000-0004</td><td class="bad">中野区新井1-2-3</td><td class="bad">YOKO@EXAMPLE.COM</td></tr>
+    <tr class="dup"><td>6</td><td>野方 花子</td><td>のがた はなこ</td><td>090-0000-0002</td><td>東京都中野区野方1-2-3</td><td>hanako@example.com</td></tr>
+    <tr><td>7</td><td>江古田 健</td><td class="bad">（空欄）</td><td>070-0000-0005</td><td>東京都中野区江古田3-1-8</td><td>ken@example.com</td></tr>
+    <tr><td>8</td><td>鷺宮 さくら</td><td>さぎのみや さくら</td><td class="bad">080-0000-000</td><td>東京都中野区鷺宮4-5-6</td><td>sakura@example.com</td></tr>
+    <tr class="dup"><td>9</td><td>新井 葉子</td><td>あらい ようこ</td><td>080-0000-0004</td><td>東京都中野区新井1-2-3</td><td>yoko@example.com</td></tr>
+    <tr><td>10</td><td class="bad">本町　誠</td><td>ほんちょう まこと</td><td class="bad">03-0000-0006（自宅）</td><td class="bad">東京都中野区本町２－３－４</td><td>makoto@example.com</td></tr>
+    <tr><td>11</td><td>弥生 ゆい</td><td>やよい ゆい</td><td>090-0000-0007</td><td class="bad">東京都 中野区 弥生町 1-1-1</td><td>yui@example.com</td></tr>
+    <tr><td>12</td><td>上高田 亮</td><td>かみたかだ りょう</td><td>080-0000-0008</td><td>東京都中野区上高田2-2-2</td><td class="bad">ryo@example,com</td></tr>
+  </table></div>
+
+  <h2>After｜整理したリスト</h2>
+  <div class="legend"><span class="l3">直した・まとめた箇所</span><span>「要確認」は、元のデータだけでは正しい値がわからないもの</span></div>
+  <div class="table-wrap"><table class="grid-table">
+    <tr><th>No.</th><th>氏名</th><th>ふりがな</th><th>電話番号</th><th>住所</th><th>メール</th><th>メモ</th></tr>
+    <tr><td>1</td><td>中野　太郎</td><td>なかの　たろう</td><td>090-0000-0001</td><td>東京都中野区中野5-1-1</td><td>taro@example.com</td><td class="fixed">No.3と統合</td></tr>
+    <tr><td>2</td><td class="fixed">野方　花子</td><td class="fixed">のがた　はなこ</td><td class="fixed">090-0000-0002</td><td class="fixed">東京都中野区野方1-2-3</td><td>hanako@example.com</td><td class="fixed">No.6と統合</td></tr>
+    <tr><td>3</td><td>沼袋　一郎</td><td>ぬまぶくろ　いちろう</td><td class="fixed">03-0000-0003</td><td class="fixed">東京都中野区沼袋2-4-6</td><td>ichiro@example.com</td><td></td></tr>
+    <tr><td>4</td><td class="fixed">新井　葉子</td><td>あらい　ようこ</td><td>080-0000-0004</td><td class="fixed">東京都中野区新井1-2-3</td><td class="fixed">yoko@example.com</td><td class="fixed">No.9と統合</td></tr>
+    <tr><td>5</td><td>江古田　健</td><td><span class="tag red">要確認</span></td><td>070-0000-0005</td><td>東京都中野区江古田3-1-8</td><td>ken@example.com</td><td>ふりがなが空欄</td></tr>
+    <tr><td>6</td><td>鷺宮　さくら</td><td>さぎのみや　さくら</td><td><span class="tag red">要確認</span></td><td>東京都中野区鷺宮4-5-6</td><td>sakura@example.com</td><td>電話番号の桁が足りない</td></tr>
+    <tr><td>7</td><td class="fixed">本町　誠</td><td>ほんちょう　まこと</td><td class="fixed">03-0000-0006</td><td class="fixed">東京都中野区本町2-3-4</td><td>makoto@example.com</td><td class="fixed">「自宅」はメモ欄へ</td></tr>
+    <tr><td>8</td><td>弥生　ゆい</td><td>やよい　ゆい</td><td>090-0000-0007</td><td class="fixed">東京都中野区弥生町1-1-1</td><td>yui@example.com</td><td></td></tr>
+    <tr><td>9</td><td>上高田　亮</td><td>かみたかだ　りょう</td><td>080-0000-0008</td><td>東京都中野区上高田2-2-2</td><td class="fixed">ryo@example.com</td><td class="fixed">「,」を「.」に修正</td></tr>
+  </table></div>
+
+  <div class="note"><b>ポイント：</b>推測で書き換えてはいけない情報（空欄のふりがな、桁が足りない電話番号など）は、勝手に埋めずに「要確認」の印をつけて、一覧でご報告します。</div>
+
+  <section class="ai-box">
+    <h2>この見本の作り方（AIの使い方）</h2>
+    <ol>
+      <li>元のリストを見て、表記ゆれと重複のパターンを洗い出し、整理のルールをご担当者さまと決めます</li>
+      <li>AI（Claude）でルールに沿って一括で整え、どこを直したかの記録を残します（件数が多い場合は、関数やGASで処理します）</li>
+      <li>直した箇所と「要確認」の行を、人が元のデータと照らし合わせて確認してから納品します</li>
+    </ol>
+  </section>
+
+  <p class="foot">※ この資料はポートフォリオ用の見本です。人名・電話番号・住所・メールアドレスはすべて架空のものです。</p>
+</div></main>
+</body>
+</html>

@@ -4,6 +4,8 @@
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const pad = (n) => String(n).padStart(2, "0");
   const bySlug = Object.fromEntries(items.map((it) => [it.slug, it]));
+  const aiSamples = window.AI_SAMPLES || [];
+  const aiById = Object.fromEntries(aiSamples.map((s) => [s.id, s]));
 
   const img = {
     site: (it) => `assets/web/${it.slug}.jpg`,
@@ -11,7 +13,7 @@
     docCover: (it) => `assets/docs/${it.slug}/cover_s.jpg`,
     card: (it, key) => `assets/cards/${it.slug}/${key}.jpg`,
   };
-  const VIEW_LABEL = { brand: "ブランド一式", site: "Webサイト", doc: "資料", card: "名刺" };
+  const VIEW_LABEL = { brand: "ブランド一式", site: "Webサイト", doc: "資料", card: "名刺", ai: "AIバックオフィス" };
 
   let view = "brand";
   let industry = "all";
@@ -74,7 +76,23 @@
     return it.siteDesc;
   }
 
+  function renderAiGrid() {
+    $("#chips").hidden = true;
+    $("#grid").innerHTML = aiSamples.map((s) => `
+      <a class="card-item" href="#ai/${s.id}" aria-label="${esc(s.title)}の見本を見る">
+        <div class="thumb ai"><span class="badge">AI × 人の確認</span><img loading="lazy" src="assets/ai/${s.id}.jpg" alt=""></div>
+        <div class="meta">
+          <div class="meta-top">${s.tags.map((t) => `<span>${esc(t)}</span>`).join("")}</div>
+          <h3>${esc(s.title)}</h3>
+          <p>${esc(s.sub)}</p>
+        </div>
+      </a>`).join("");
+    $("#count").textContent = `AIバックオフィス：${aiSamples.length}点（依頼主は架空の不動産会社「中野すまい相談室」を想定）`;
+  }
+
   function renderGrid() {
+    if (view === "ai") return renderAiGrid();
+    $("#chips").hidden = false;
     const list = items.filter((it) => industry === "all" || it.industry === industry);
     const tab = { brand: "", site: "site", doc: "doc", card: "card" }[view];
     $("#grid").innerHTML = list.map((it) => `
@@ -212,6 +230,33 @@
     $(".modal-close").focus();
   }
 
+  function openAi(id) {
+    const s = aiById[id];
+    if (!s) return closeModal(true);
+    if (modal.hidden) lastFocus = document.activeElement;
+    $("#modalBody").onclick = null;
+    $("#modalBody").innerHTML = `
+      <div class="m-head">
+        <div class="meta-top"><span>AIバックオフィス</span>${s.tags.map((t) => `<span>${esc(t)}</span>`).join("")}</div>
+        <h2 id="mTitle">${esc(s.title)}</h2>
+      </div>
+      <section class="m-sec ai-sec">
+        <h3>${esc(s.sub)}</h3>
+        <p class="m-desc">${esc(s.desc)}</p>
+        <ul class="ai-points">${s.points.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
+        <a class="m-shot" href="samples/${s.id}.html" target="_blank" rel="noopener"><img src="assets/ai/${s.id}.jpg" alt="${esc(s.title)}の見本の画面"></a>
+        <div class="m-actions">
+          <a class="btn" href="samples/${s.id}.html" target="_blank" rel="noopener">見本を開く</a>
+          ${s.id === "gas" ? `<a class="btn btn-ghost" href="samples/inquiry-automation.gs" download>コードをダウンロード</a>` : ""}
+          <small>依頼主は架空の会社です。AIで下書きし、人が確認して仕上げる流れを想定しています。</small>
+        </div>
+      </section>`;
+    modal.hidden = false;
+    document.body.style.overflow = "hidden";
+    $(".modal-panel").scrollTop = 0;
+    $(".modal-close").focus();
+  }
+
   function closeModal(fromRoute) {
     if (modal.hidden) return;
     modal.hidden = true;
@@ -224,7 +269,8 @@
   document.addEventListener("keydown", (e) => {
     if (modal.hidden) return;
     if (e.key === "Escape") closeModal();
-    const docOpen = !modal.querySelector('[data-sec="doc"]').hidden;
+    const docSec = modal.querySelector('[data-sec="doc"]');
+    const docOpen = docSec && !docSec.hidden;
     if (docOpen && e.key === "ArrowRight") modal._goPage(docPage + 1);
     if (docOpen && e.key === "ArrowLeft") modal._goPage(docPage - 1);
   });
@@ -232,7 +278,9 @@
   // #w/<slug>/<tab> で詳細を開く（クラウドワークスから作品ごとにリンクできるように）
   function route() {
     const m = location.hash.match(/^#w\/([\w-]+)(?:\/(\w+))?/);
+    const a = location.hash.match(/^#ai\/([\w-]+)/);
     if (m) openModal(m[1], m[2]);
+    else if (a) openAi(a[1]);
     else closeModal(true);
   }
   window.addEventListener("hashchange", route);

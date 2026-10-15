@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>内見予約 受付マニュアル｜AIバックオフィス見本</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="doc.css">
+<style>
+  .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 12px 0 20px; counter-reset: s; }
+  .flow div { background: var(--blue-2); border-radius: 6px; padding: 12px 10px; text-align: center; font-size: 13px; font-weight: 700; position: relative; counter-increment: s; }
+  .flow div::before { content: "STEP " counter(s); display: block; color: var(--blue); font-size: 11px; letter-spacing: .06em; }
+  .flow small { display: block; font-weight: 400; color: var(--ink-2); font-size: 11.5px; margin-top: 2px; }
+  @media (max-width: 720px) { .flow { grid-template-columns: 1fr 1fr; } }
+  .step { border: 1px solid var(--line); border-radius: 8px; padding: 18px 20px; margin: 14px 0; }
+  .step h3 { margin-top: 0; display: flex; gap: 10px; align-items: center; }
+  .step h3 span { background: var(--blue); color: #fff; border-radius: 4px; font-size: 12px; padding: 1px 8px; }
+  .check li { list-style: none; margin-left: -1.4em; }
+  .check li::before { content: "□ "; color: var(--blue); }
+  .faq dt { font-weight: 700; margin-top: 12px; }
+  .faq dt::before { content: "Q. "; color: var(--blue); }
+  .faq dd { margin: 2px 0 0; color: var(--ink-2); }
+  .faq dd::before { content: "A. "; color: var(--red); font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="sample-bar"><span><b>AIバックオフィス 見本</b>｜業務マニュアルの作成</span><span>架空の会社を想定した見本です／<a href="../#ai/manual">ポートフォリオに戻る</a></span></div>
+
+<main class="page"><div class="page-inner">
+  <header class="doc-head">
+    <div class="doc-kicker">中野すまい相談室　業務マニュアル No.03</div>
+    <h1>内見予約の受付から、当日の案内まで</h1>
+    <div class="meta"><span><b>対象：</b>受付・営業スタッフ</span><span><b>版：</b>第1.0版</span><span><b>作成日：</b>2026年10月15日</span><span><b>所要時間の目安：</b>1件10分</span></div>
+  </header>
+
+  <h2>1. このマニュアルの目的</h2>
+  <p>お客さまから内見（お部屋の見学）のご希望をいただいてから、当日ご案内するまでの手順をまとめたものです。<b>誰が受け付けても同じ品質で対応できること</b>、<b>予約の重複や連絡もれをなくすこと</b>を目的としています。</p>
+
+  <h2>2. 全体の流れ</h2>
+  <div class="flow">
+    <div>受付<small>電話・メール・フォーム</small></div>
+    <div>空き確認<small>管理会社・鍵の手配</small></div>
+    <div>予約確定<small>お客さまへ連絡</small></div>
+    <div>前日確認<small>リマインド送信</small></div>
+    <div>当日案内<small>記録を残す</small></div>
+  </div>
+
+  <h2>3. 手順の詳しい説明</h2>
+
+  <div class="step">
+    <h3><span>STEP 1</span>受付：お客さまのご希望を聞く</h3>
+    <p>次の5つを必ず聞き取り、「内見予約表」（共有スプレッドシート）に入力します。</p>
+    <table>
+      <tr><th>聞くこと</th><th>入力する欄</th><th>例</th></tr>
+      <tr><td>お名前・ふりがな</td><td>B列・C列</td><td>中野 太郎（なかの たろう）</td></tr>
+      <tr><td>連絡先（電話とメール）</td><td>D列・E列</td><td>090-0000-0000／sample@example.com</td></tr>
+      <tr><td>見たい物件（物件番号）</td><td>F列</td><td>NK-1024</td></tr>
+      <tr><td>希望日時（第3希望まで）</td><td>G〜I列</td><td>10/19（月）14:00 ほか</td></tr>
+      <tr><td>来店か、現地待ち合わせか</td><td>J列</td><td>現地待ち合わせ</td></tr>
+    </table>
+    <div class="note"><b>ポイント：</b>この時点では「予約確定」とは言わず、「空き状況を確認して、本日中にご連絡します」とお伝えします。</div>
+  </div>
+
+  <div class="step">
+    <h3><span>STEP 2</span>空き確認：管理会社と鍵の手配</h3>
+    <ol>
+      <li>物件番号から、管理会社と鍵の受け取り方法を「物件台帳」で確認します。</li>
+      <li>管理会社に、希望日時に内見できるかを電話またはメールで確認します。</li>
+      <li>社内カレンダーで、案内できるスタッフの空きを確認します。</li>
+    </ol>
+    <div class="warn"><b>注意：</b>申込みが入っている物件は内見できないことがあります。物件台帳の「状況」が <span class="tag red">申込あり</span> のときは、必ず管理会社に確認してください。</div>
+  </div>
+
+  <div class="step">
+    <h3><span>STEP 3</span>予約確定：お客さまへ連絡する</h3>
+    <ol>
+      <li>日時・待ち合わせ場所・担当者名を、メールの定型文「内見予約の確認」で送ります。</li>
+      <li>社内カレンダーに「内見｜お名前｜物件番号」の形で登録します。</li>
+      <li>内見予約表の「状況」を <span class="tag">予約確定</span> に変えます。</li>
+    </ol>
+  </div>
+
+  <div class="step">
+    <h3><span>STEP 4</span>前日確認：リマインドを送る</h3>
+    <p>内見の前日17時までに、定型文「明日の内見のご案内」を送ります。現地待ち合わせの場合は、地図のURLと担当者の携帯番号を必ず入れます。</p>
+  </div>
+
+  <div class="step">
+    <h3><span>STEP 5</span>当日案内：記録を残す</h3>
+    <p>案内が終わったら、その日のうちに内見予約表の「感想・次の動き」欄に記入し、「状況」を <span class="tag green">内見済み</span> に変えます。</p>
+  </div>
+
+  <h2>4. よくある質問</h2>
+  <dl class="faq">
+    <dt>希望日時がすべて埋まっていたら？</dt>
+    <dd>空いている日時を2〜3つご提案します。「◯日と◯日なら、午前・午後どちらも空いています」のように選びやすく伝えます。</dd>
+    <dt>当日にキャンセルの連絡が来たら？</dt>
+    <dd>管理会社と担当スタッフにすぐ連絡し、カレンダーの予定を削除します。お客さまには、別の日程のご提案をします。</dd>
+    <dt>お客さまが待ち合わせに来ないときは？</dt>
+    <dd>10分過ぎたら一度お電話します。30分たってもつながらなければ、メールを送って事務所に戻ります。</dd>
+  </dl>
+
+  <h2>5. 確認チェックリスト</h2>
+  <ul class="check">
+    <li>5つの項目をすべて聞き取り、内見予約表に入力した</li>
+    <li>管理会社に内見できることを確認した</li>
+    <li>お客さまに確認メールを送り、カレンダーに登録した</li>
+    <li>前日17時までにリマインドを送った</li>
+    <li>当日中に記録を残し、状況を「内見済み」にした</li>
+  </ul>
+
+  <h2>6. 改訂履歴</h2>
+  <table>
+    <tr><th>版</th><th>日付</th><th>内容</th></tr>
+    <tr><td>1.0</td><td>2026/10/15</td><td>初版を作成</td></tr>
+  </table>
+
+  <section class="ai-box">
+    <h2>この見本の作り方（AIの使い方）</h2>
+    <ol>
+      <li>ご担当者さまから、いまの手順を箇条書きのメモと口頭でうかがう想定です</li>
+      <li>AI（Claude）で、メモから手順・注意点・よくある質問を整理し、マニュアルの形に下書き</li>
+      <li>用語や社内のルールに合っているかを人が確認し、ご担当者さまの確認を経て完成</li>
+    </ol>
+  </section>
+
+  <p class="foot">※ この資料はポートフォリオ用の見本です。会社名・人名・連絡先・物件番号はすべて架空のものです。</p>
+</div></main>
+</body>
+</html>

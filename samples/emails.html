@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>メール定型文セット｜AIバックオフィス見本</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="doc.css">
+<style>
+  .mail { border: 1px solid var(--line); border-radius: 8px; margin: 16px 0 24px; overflow: hidden; }
+  .mail-head { background: #F5F6F8; padding: 12px 18px; border-bottom: 1px solid var(--line); display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .mail-head .no { color: var(--blue); font-weight: 700; font-size: 13px; }
+  .mail-head h3 { margin: 0; font-size: 15px; }
+  .mail-head .when { margin-left: auto; font-size: 12px; color: var(--muted); }
+  .mail-body { padding: 14px 18px 16px; font-size: 13.5px; }
+  .subject { font-size: 13px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed var(--line); }
+  .subject b { color: var(--muted); font-weight: 500; margin-right: 8px; }
+  .body { white-space: pre-wrap; margin: 0; font-family: inherit; line-height: 1.85; background: none; color: var(--ink); padding: 0; font-size: 13.5px; border-radius: 0; overflow: visible; }
+  .v { background: var(--yellow); border-radius: 3px; padding: 0 3px; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="sample-bar"><span><b>AIバックオフィス 見本</b>｜メール文案（定型文セット）</span><span>架空の会社を想定した見本です／<a href="../#ai/emails">ポートフォリオに戻る</a></span></div>
+
+<main class="page"><div class="page-inner">
+  <header class="doc-head">
+    <div class="doc-kicker">中野すまい相談室　メール定型文セット</div>
+    <h1>よく使うメール5本を、<br>だれが送っても同じ品質に</h1>
+    <div class="meta"><span><b>本数：</b>5本</span><span><b>使い方：</b><span class="v">黄色の部分</span>を書き換えて送信</span><span><b>作成日：</b>2026年10月15日</span></div>
+  </header>
+
+  <h2>使い分けの早見表</h2>
+  <div class="table-wrap"><table>
+    <tr><th>No.</th><th>場面</th><th>送るタイミング</th></tr>
+    <tr><td>01</td><td>問い合わせへの自動返信</td><td>フォーム送信の直後（自動）</td></tr>
+    <tr><td>02</td><td>内見予約の確認</td><td>予約が確定したとき</td></tr>
+    <tr><td>03</td><td>明日の内見のご案内</td><td>内見の前日17時まで</td></tr>
+    <tr><td>04</td><td>必要書類のお願い</td><td>お申し込みを受けたとき</td></tr>
+    <tr><td>05</td><td>ご希望に合う物件がなかったとき</td><td>探した結果をお伝えするとき</td></tr>
+  </table></div>
+
+  <h2>定型文</h2>
+
+  <article class="mail">
+    <div class="mail-head"><span class="no">01</span><h3>問い合わせへの自動返信</h3><span class="when">フォーム送信の直後</span></div>
+    <div class="mail-body">
+      <div class="subject"><b>件名</b>【中野すまい相談室】お問い合わせを受け付けました</div>
+<pre class="body"><span class="v">{お名前}</span> 様
+
+中野すまい相談室です。
+このたびはお問い合わせいただき、ありがとうございます。
+
+以下の内容で受け付けました。
+2営業日以内に、担当者よりご連絡いたします。
+
+――――――――――
+ご用件：<span class="v">{ご用件}</span>
+ご希望のエリア：<span class="v">{希望エリア}</span>
+――――――――――
+
+※ このメールは自動でお送りしています。
+※ 土日にいただいたお問い合わせは、月曜日以降のご連絡となる場合があります。</pre>
+    </div>
+  </article>
+
+  <article class="mail">
+    <div class="mail-head"><span class="no">02</span><h3>内見予約の確認</h3><span class="when">予約が確定したとき</span></div>
+    <div class="mail-body">
+      <div class="subject"><b>件名</b>【内見のご予約】<span class="v">{月/日}</span>（<span class="v">{曜日}</span>）<span class="v">{時刻}</span>〜　<span class="v">{物件名}</span></div>
+<pre class="body"><span class="v">{お名前}</span> 様
+
+中野すまい相談室の<span class="v">{担当者名}</span>です。
+内見のご予約を、以下の内容で承りました。
+
+■ 日時　　：<span class="v">{月/日}</span>（<span class="v">{曜日}</span>）<span class="v">{時刻}</span>〜（30分ほど）
+■ 物件　　：<span class="v">{物件名}</span>（<span class="v">{物件番号}</span>）
+■ 待ち合わせ：<span class="v">{待ち合わせ場所}</span>
+
+前日に、あらためてご案内のメールをお送りします。
+ご都合が変わった場合は、このメールにご返信ください。
+
+当日お会いできるのを楽しみにしております。</pre>
+    </div>
+  </article>
+
+  <article class="mail">
+    <div class="mail-head"><span class="no">03</span><h3>明日の内見のご案内</h3><span class="when">前日17時まで</span></div>
+    <div class="mail-body">
+      <div class="subject"><b>件名</b>【明日の内見のご案内】<span class="v">{時刻}</span>〜　<span class="v">{物件名}</span></div>
+<pre class="body"><span class="v">{お名前}</span> 様
+
+中野すまい相談室の<span class="v">{担当者名}</span>です。
+明日の内見について、ご案内いたします。
+
+■ 日時：<span class="v">{月/日}</span>（<span class="v">{曜日}</span>）<span class="v">{時刻}</span>〜
+■ 待ち合わせ：<span class="v">{待ち合わせ場所}</span>
+　地図：<span class="v">{地図のURL}</span>
+■ 当日の連絡先：<span class="v">{担当者の携帯番号}</span>（<span class="v">{担当者名}</span>）
+
+メジャーやスマートフォンのカメラがあると、家具の置き場所を考えるときに便利です。
+お気をつけてお越しください。</pre>
+    </div>
+  </article>
+
+  <article class="mail">
+    <div class="mail-head"><span class="no">04</span><h3>必要書類のお願い</h3><span class="when">お申し込みを受けたとき</span></div>
+    <div class="mail-body">
+      <div class="subject"><b>件名</b>【お申し込みの書類について】<span class="v">{物件名}</span></div>
+<pre class="body"><span class="v">{お名前}</span> 様
+
+中野すまい相談室の<span class="v">{担当者名}</span>です。
+<span class="v">{物件名}</span>へのお申し込み、ありがとうございます。
+
+審査のため、次の書類をご用意ください。
+1. 本人確認書類（運転免許証など）のコピー
+2. 収入を証明する書類（源泉徴収票など）のコピー
+<span class="v">{3. そのほかの書類があれば}</span>
+
+<span class="v">{提出期限}</span>までに、このメールへの添付でお送りください。
+書類がそろわない場合も、まずはお気軽にご相談ください。</pre>
+    </div>
+  </article>
+
+  <article class="mail">
+    <div class="mail-head"><span class="no">05</span><h3>ご希望に合う物件がなかったとき</h3><span class="when">結果をお伝えするとき</span></div>
+    <div class="mail-body">
+      <div class="subject"><b>件名</b>【物件探しのご報告】<span class="v">{お名前}</span>様のご希望条件について</div>
+<pre class="body"><span class="v">{お名前}</span> 様
+
+中野すまい相談室の<span class="v">{担当者名}</span>です。
+ご希望の条件でお探ししましたが、現時点では、ぴったり合う物件が見つかりませんでした。
+お待たせしたうえでのご報告となり、申し訳ありません。
+
+条件を少し変えると、ご紹介できる物件があります。
+・<span class="v">{変える条件の例：駅から徒歩10分→15分}</span>にすると、<span class="v">{件数}</span>件
+・<span class="v">{変える条件の例：築年数を問わない}</span>にすると、<span class="v">{件数}</span>件
+
+新しい物件が出たときにお知らせすることもできますので、
+ご希望があれば、このメールにご返信ください。</pre>
+    </div>
+  </article>
+
+  <section class="ai-box">
+    <h2>この見本の作り方（AIの使い方）</h2>
+    <ol>
+      <li>過去に送ったメールを何通かお預かりし、よく使う場面を洗い出す想定です</li>
+      <li>AI（Claude）で、言葉づかいをそろえ、差し替える部分を <span class="v">{ }</span> にした定型文に整えます</li>
+      <li>敬語・情報のもれ・お客さまが不安にならない表現かを人が確認し、早見表をつけて完成</li>
+    </ol>
+  </section>
+
+  <p class="foot">※ この資料はポートフォリオ用の見本です。会社名・人名・連絡先はすべて架空のものです。</p>
+</div></main>
+</body>
+</html>

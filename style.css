@@ -277,3 +277,16 @@ section { padding: clamp(64px, 9vw, 120px) 0; }
   .viewer .nav-btn { width: 34px; height: 34px; font-size: 16px; background: rgba(20,23,31,.55); }
   .viewer .prev { left: 6px; } .viewer .next { right: 6px; }
 }
+
+/* ---------- AIバックオフィス ---------- */
+.thumb.ai { aspect-ratio: 4 / 3; background: #EEF0F4; }
+.thumb.ai img { object-position: top center; }
+.thumb.ai .badge { background: var(--accent); color: #fff; }
+.ai-points { margin: 0 0 20px; padding-left: 1.3em; font-size: 14px; color: var(--ink-2); }
+.ai-points li { margin: 2px 0; }
+.ai-sec .m-shot { max-height: 60vh; overflow: hidden; }
+.btn-ghost { background: transparent; color: var(--accent-ink); border: 1.5px solid var(--accent); }
+.btn-ghost:hover { background: #EEF1FF; }
+.btn-ghost::after { content: "↓"; }
+.chips[hidden] { display: none; }
+.thumb.ai .badge { left: auto; right: 12px; top: auto; bottom: 12px; }

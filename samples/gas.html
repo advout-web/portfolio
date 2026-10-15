@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>問い合わせ管理の自動化（GAS）｜AIバックオフィス見本</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="doc.css">
+<style>
+  .flowline { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 8px; align-items: stretch; margin: 12px 0 8px; }
+  .flowline .box { border: 1px solid var(--line); border-radius: 8px; padding: 12px; font-size: 13px; background: #FAFBFC; }
+  .flowline .box b { display: block; font-size: 14px; margin-bottom: 4px; }
+  .flowline .box.auto { border-color: var(--blue); background: var(--blue-2); }
+  .flowline .arr { align-self: center; color: var(--blue); font-weight: 700; }
+  @media (max-width: 720px) { .flowline { grid-template-columns: 1fr; } .flowline .arr { transform: rotate(90deg); justify-self: center; } }
+  .sheet { border: 1px solid #C9CDD3; border-radius: 6px; overflow: hidden; font-size: 12.5px; }
+  .sheet-bar { background: #F1F3F4; padding: 6px 10px; font-size: 12px; color: var(--ink-2); border-bottom: 1px solid #C9CDD3; display: flex; gap: 8px; align-items: center; }
+  .sheet-bar i { width: 14px; height: 14px; border-radius: 3px; background: #0F9D58; display: inline-block; }
+  .sheet table { margin: 0; font-size: 12.5px; }
+  .sheet th { background: #F8F9FA; color: var(--ink-2); font-weight: 500; text-align: center; }
+  .sheet td, .sheet th { border-color: #E1E3E6; padding: 5px 8px; white-space: nowrap; }
+  .sheet td.rn { background: #F8F9FA; color: var(--muted); text-align: center; width: 28px; }
+  .sheet .auto-col { background: #F4F6FF; }
+  .sheet tr.late td:not(.rn) { background: #FDECEC; }
+  .mailmock { border: 1px solid var(--line); border-radius: 8px; padding: 14px 18px; font-size: 13px; }
+  .mailmock .sub { font-weight: 700; margin-bottom: 8px; }
+  .mailmock pre { background: none; color: var(--ink); padding: 0; margin: 0; font-family: inherit; font-size: 13px; }
+  .result { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 12px 0; }
+  .result div { background: var(--green-2); border-radius: 8px; padding: 12px 14px; font-size: 13px; }
+  .result b { display: block; font-size: 22px; color: var(--green); }
+  @media (max-width: 720px) { .result { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="sample-bar"><span><b>AIバックオフィス 見本</b>｜スプレッドシートの自動化（GAS）</span><span>架空の会社を想定した見本です／<a href="../#ai/gas">ポートフォリオに戻る</a></span></div>
+
+<main class="page"><div class="page-inner">
+  <header class="doc-head">
+    <div class="doc-kicker">Google Apps Script（GAS）による業務の自動化</div>
+    <h1>問い合わせの「割り当て・通知・集計」を<br>スプレッドシートで自動に</h1>
+    <div class="meta"><span><b>使うもの：</b>Googleフォーム・スプレッドシート・Gmail（追加の費用なし）</span><span><b>コード：</b>約100行</span></div>
+  </header>
+
+  <h2>1. 困っていたこと</h2>
+  <ul>
+    <li>問い合わせが来たことに気づくのが遅れ、返信が翌日以降になることがあった</li>
+    <li>誰が担当するかをその都度話し合っていて、対応もれが出ていた</li>
+    <li>週に1回、件数を手で数えて報告していた（毎週30分ほど）</li>
+  </ul>
+
+  <h2>2. 自動化したこと</h2>
+  <div class="flowline">
+    <div class="box"><b>お客さま</b>サイトのフォームから問い合わせ</div>
+    <div class="arr">→</div>
+    <div class="box auto"><b>自動① 割り当て・通知</b>担当者を順番に決めて、シートに記入。社内にメールで知らせる</div>
+    <div class="arr">→</div>
+    <div class="box auto"><b>自動② ③ 見守り・週報</b>24時間未対応なら毎朝お知らせ。月曜の朝に先週の週報</div>
+  </div>
+
+  <h3>問い合わせ管理シート（G〜I列が自動で入る）</h3>
+  <div class="sheet">
+    <div class="sheet-bar"><i></i>問い合わせ管理　―　シート「問い合わせ」</div>
+    <div class="table-wrap"><table>
+      <tr><th></th><th>A タイムスタンプ</th><th>B お名前</th><th>D ご用件</th><th>E 希望エリア</th><th>G 担当</th><th>H 状況</th><th>I 割り当て日時</th></tr>
+      <tr><td class="rn">2</td><td>10/11 21:04</td><td>中野 太郎</td><td>賃貸のご相談</td><td>中野</td><td class="auto-col">佐藤</td><td class="auto-col"><span class="tag green">対応済み</span></td><td class="auto-col">10/11 21:04</td></tr>
+      <tr class="late"><td class="rn">3</td><td>10/12 08:47</td><td>野方 花子</td><td>売却のご相談</td><td>野方</td><td class="auto-col">鈴木</td><td class="auto-col"><span class="tag red">未対応</span></td><td class="auto-col">10/12 08:47</td></tr>
+      <tr><td class="rn">4</td><td>10/13 12:30</td><td>沼袋 一郎</td><td>購入のご相談</td><td>沼袋</td><td class="auto-col">高橋</td><td class="auto-col"><span class="tag">対応中</span></td><td class="auto-col">10/13 12:30</td></tr>
+      <tr><td class="rn">5</td><td>10/14 19:15</td><td>新井 葉子</td><td>賃貸のご相談</td><td>新井薬師</td><td class="auto-col">佐藤</td><td class="auto-col"><span class="tag red">未対応</span></td><td class="auto-col">10/14 19:15</td></tr>
+    </table></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--muted);margin-top:6px">※ C列（メール）・F列（内容）は省略して表示しています。赤い行は24時間以上「未対応」のもの。</p>
+
+  <div class="two" style="margin-top:20px">
+    <div>
+      <h3>自動① 社内への通知メール</h3>
+      <div class="mailmock">
+        <div class="sub">【新しい問い合わせ】賃貸のご相談｜新井 葉子 様（担当：佐藤）</div>
+<pre>新しい問い合わせがありました。担当：佐藤
+
+お名前　：新井 葉子 様
+ご用件　：賃貸のご相談
+希望エリア：新井薬師
+
+2LDKで、駅から10分以内を探しています。</pre>
+      </div>
+    </div>
+    <div>
+      <h3>自動③ 月曜の朝の週報</h3>
+      <div class="mailmock">
+        <div class="sub">【週報】先週の問い合わせ 42 件</div>
+<pre>先週（10/5〜10/11）の問い合わせは 42 件でした。
+
+■ ご用件別
+　賃貸のご相談：24件
+　購入のご相談：11件
+　売却のご相談：7件
+
+■ 状況別
+　対応済み：38件
+　対応中：3件
+　未対応：1件</pre>
+      </div>
+    </div>
+  </div>
+
+  <h2>3. 導入後の変化（想定）</h2>
+  <div class="result">
+    <div><b>即時</b>問い合わせに気づくまでの時間</div>
+    <div><b>0件</b>担当者が決まらないままの問い合わせ</div>
+    <div><b>毎週30分</b>手作業の集計がなくなる</div>
+  </div>
+
+  <h2>4. コード（Google Apps Script）</h2>
+  <p>スプレッドシートの「拡張機能 → Apps Script」に貼り付け、設定の3項目（シート名・担当者・通知先）を書き換えて、<code>setupTriggers</code> を1回実行するだけで動きます。<a href="inquiry-automation.gs" download>コードをダウンロード（.gs）</a></p>
+<pre><span class="c">/**
+ * 問い合わせ管理シートの自動化（中野すまい相談室〔架空〕向けの見本）
+ *
+ * Googleフォームの回答シート「問い合わせ」に対して、次の3つを自動で行います。
+ *   1. 新しい問い合わせが来たら、担当者を順番に割り当てて、社内にメールで知らせる
+ *   2. 24時間たっても「未対応」のものがあれば、毎朝まとめて知らせる
+ *   3. 毎週月曜の朝に、先週の問い合わせの件数をまとめた週報を送る
+ *
+ * シートの列：A タイムスタンプ／B お名前／C メールアドレス／D ご用件／E 希望エリア／F お問い合わせ内容
+ *             G 担当（自動）／H 状況（自動で「未対応」）／I 割り当て日時（自動）
+ * 使い方：設定の3項目を書き換え、setupTriggers を1回だけ実行してください。
+ */</span>
+
+<span class="c">// ───── 設定 ─────</span>
+const SHEET_NAME = &#x27;問い合わせ&#x27;;
+const STAFF = [&#x27;佐藤&#x27;, &#x27;鈴木&#x27;, &#x27;高橋&#x27;];       <span class="c">// 担当者（この順番で割り当てます）</span>
+const NOTIFY_TO = &#x27;team@example.com&#x27;;           <span class="c">// 社内の通知先</span>
+
+<span class="c">// 列の番号（A列 = 1）</span>
+const COL = { time: 1, name: 2, email: 3, kind: 4, area: 5, message: 6, staff: 7, status: 8, assignedAt: 9 };
+
+<span class="c">/** 1. フォームが送信されたとき：担当者を割り当てて通知する */</span>
+function onFormSubmit(e) {
+  const sheet = e.range.getSheet();
+  if (sheet.getName() !== SHEET_NAME) return;
+
+  const row = e.range.getRow();
+  const staff = STAFF[(row - 2) % STAFF.length];   <span class="c">// 2行目から順番に割り当て</span>
+  sheet.getRange(row, COL.staff, 1, 3).setValues([[staff, &#x27;未対応&#x27;, new Date()]]);
+
+  const v = e.namedValues;  <span class="c">// 項目名 → 回答の配列</span>
+  const body = [
+    `新しい問い合わせがありました。担当：${staff}`,
+    &#x27;&#x27;,
+    `お名前　：${v[&#x27;お名前&#x27;][0]} 様`,
+    `ご用件　：${v[&#x27;ご用件&#x27;][0]}`,
+    `希望エリア：${v[&#x27;希望エリア&#x27;][0]}`,
+    &#x27;&#x27;,
+    v[&#x27;お問い合わせ内容&#x27;][0],
+    &#x27;&#x27;,
+    `シートを開く：${SpreadsheetApp.getActive().getUrl()}`,
+  ].join(&#x27;\n&#x27;);
+
+  MailApp.sendEmail(NOTIFY_TO, `【新しい問い合わせ】${v[&#x27;ご用件&#x27;][0]}｜${v[&#x27;お名前&#x27;][0]} 様（担当：${staff}）`, body);
+}
+
+<span class="c">/** 2. 毎朝：24時間以上「未対応」のものを知らせる */</span>
+function remindOverdue() {
+  const rows = getRows_();
+  const limit = Date.now() - 24 * 60 * 60 * 1000;
+  const overdue = rows.filter(r =&gt; r[COL.status - 1] === &#x27;未対応&#x27; &amp;&amp; new Date(r[COL.time - 1]).getTime() &lt; limit);
+  if (overdue.length === 0) return;
+
+  const lines = overdue.map(r =&gt;
+    `・${Utilities.formatDate(new Date(r[COL.time - 1]), &#x27;Asia/Tokyo&#x27;, &#x27;M/d HH:mm&#x27;)}　${r[COL.name - 1]} 様（${r[COL.kind - 1]}）担当：${r[COL.staff - 1]}`);
+  MailApp.sendEmail(NOTIFY_TO, `【要対応】24時間以上 未対応の問い合わせが ${overdue.length} 件あります`, lines.join(&#x27;\n&#x27;));
+}
+
+<span class="c">/** 3. 毎週月曜：先週（月〜日）の週報を送る */</span>
+function weeklyReport() {
+  const end = new Date();
+  end.setHours(0, 0, 0, 0);                         <span class="c">// 今日（月曜）の0時</span>
+  const start = new Date(end.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+  const rows = getRows_().filter(r =&gt; {
+    const t = new Date(r[COL.time - 1]);
+    return t &gt;= start &amp;&amp; t &lt; end;
+  });
+
+  const countBy = (col) =&gt; rows.reduce((acc, r) =&gt; {
+    const key = r[col - 1] || &#x27;（未入力）&#x27;;
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
+  const format = (obj) =&gt; Object.entries(obj).sort((a, b) =&gt; b[1] - a[1]).map(([k, n]) =&gt; `　${k}：${n}件`).join(&#x27;\n&#x27;);
+
+  const fmt = (d) =&gt; Utilities.formatDate(d, &#x27;Asia/Tokyo&#x27;, &#x27;M/d&#x27;);
+  const body = [
+    `先週（${fmt(start)}〜${fmt(new Date(end.getTime() - 1))}）の問い合わせは ${rows.length} 件でした。`,
+    &#x27;&#x27;, &#x27;■ ご用件別&#x27;, format(countBy(COL.kind)),
+    &#x27;&#x27;, &#x27;■ 担当者別&#x27;, format(countBy(COL.staff)),
+    &#x27;&#x27;, &#x27;■ 状況別&#x27;, format(countBy(COL.status)),
+  ].join(&#x27;\n&#x27;);
+
+  MailApp.sendEmail(NOTIFY_TO, `【週報】先週の問い合わせ ${rows.length} 件`, body);
+}
+
+<span class="c">/** 最初に1回だけ実行：3つの処理を自動で動かす設定をする */</span>
+function setupTriggers() {
+  ScriptApp.getProjectTriggers().forEach(t =&gt; ScriptApp.deleteTrigger(t));  <span class="c">// 重複を防ぐ</span>
+  const ss = SpreadsheetApp.getActive();
+  ScriptApp.newTrigger(&#x27;onFormSubmit&#x27;).forSpreadsheet(ss).onFormSubmit().create();
+  ScriptApp.newTrigger(&#x27;remindOverdue&#x27;).timeBased().everyDays(1).atHour(9).create();
+  ScriptApp.newTrigger(&#x27;weeklyReport&#x27;).timeBased().onWeekDay(ScriptApp.WeekDay.MONDAY).atHour(8).create();
+}
+
+<span class="c">/** 見出し行を除いたデータを返す */</span>
+function getRows_() {
+  const sheet = SpreadsheetApp.getActive().getSheetByName(SHEET_NAME);
+  const last = sheet.getLastRow();
+  if (last &lt; 2) return [];
+  return sheet.getRange(2, 1, last - 1, COL.assignedAt).getValues();
+}
+</pre>
+
+  <section class="ai-box">
+    <h2>この見本の作り方（AIの使い方）</h2>
+    <ol>
+      <li>いまの作業の流れと、困っていることをうかがう想定です</li>
+      <li>AI（Claude）で、自動化できる部分を洗い出し、GASのコードを作成。日本語のコメントを入れて、あとから読んでもわかるようにします</li>
+      <li>テスト用のシートで、通知・お知らせ・週報が正しく動くことを人が確認してから、導入手順書とあわせて納品します</li>
+    </ol>
+  </section>
+
+  <p class="foot">※ この資料はポートフォリオ用の見本です。会社名・人名・件数・メールアドレスはすべて架空のものです。</p>
+</div></main>
+</body>
+</html>

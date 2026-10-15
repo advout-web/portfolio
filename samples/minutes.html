@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>議事録の要約｜AIバックオフィス見本</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="doc.css">
+<style>
+  .raw { background: #F7F8FA; border-radius: 8px; padding: 16px 18px; font-size: 13px; color: var(--ink-2); line-height: 1.9; }
+  .raw p { margin: 0 0 8px; }
+  .raw b { color: var(--ink); }
+  .minutes { border: 2px solid var(--blue); border-radius: 8px; padding: 18px 20px; font-size: 14px; }
+  .minutes h3 { margin: 16px 0 6px; font-size: 14px; color: var(--blue); }
+  .minutes h3:first-of-type { margin-top: 4px; }
+  .minutes ul { margin-bottom: 6px; }
+  .arrow { text-align: center; font-weight: 700; color: var(--blue); font-size: 13px; margin: 12px 0; }
+  .stat { display: flex; gap: 12px; flex-wrap: wrap; margin: 8px 0 0; }
+  .stat div { background: var(--blue-2); border-radius: 6px; padding: 8px 14px; font-size: 12.5px; }
+  .stat b { font-size: 20px; color: var(--blue); margin-right: 2px; }
+</style>
+</head>
+<body>
+<div class="sample-bar"><span><b>AIバックオフィス 見本</b>｜議事録の要約</span><span>架空の会社を想定した見本です／<a href="../#ai/minutes">ポートフォリオに戻る</a></span></div>
+
+<main class="page"><div class="page-inner">
+  <header class="doc-head">
+    <div class="doc-kicker">議事録の要約　Before / After</div>
+    <h1>30分の会議の文字起こしを、<br>1枚の議事録に</h1>
+    <div class="meta"><span><b>会議：</b>中野すまい相談室　週次の営業会議</span><span><b>元の文字起こし：</b>約9,000字</span><span><b>議事録：</b>約600字</span></div>
+    <div class="stat"><div><b>15</b>分の1の分量に</div><div><b>3</b>つの決定事項</div><div><b>5</b>つのToDo（担当・期限つき）</div></div>
+  </header>
+
+  <div class="two">
+    <section>
+      <span class="label-before">Before｜文字起こし（一部）</span>
+      <div class="raw">
+        <p><b>佐藤：</b>えー、じゃあ始めます。今週の問い合わせなんですけど、えっと、全部で、ちょっと待ってください……あ、42件ですね。先週が31だったので、けっこう増えてます。</p>
+        <p><b>鈴木：</b>増えてますね。たぶんあれですよね、サイトに予算のシミュレーターを付けたじゃないですか。あれ経由がけっこう多い気がします。</p>
+        <p><b>佐藤：</b>そうそう、フォームの「どこで知りましたか」で見ると、えー、42件のうち17件がシミュレーターからです。</p>
+        <p><b>高橋：</b>ただ、返信が遅れてるのもあって。金曜の夜に来たやつ、月曜の昼まで返せてなくて、お客さんにちょっと言われちゃいました。</p>
+        <p><b>佐藤：</b>あー……それはまずいですね。土日はどうしましょうか。当番を決めます？</p>
+        <p><b>鈴木：</b>当番まではいかなくても、自動返信だけでも先に送れたら違いますよね。「◯営業日以内にご連絡します」みたいな。</p>
+        <p><b>佐藤：</b>じゃあ自動返信は入れましょう。それと土日は、えっと、交代で午前中に1回だけ確認する、でどうですか。……（以下、約25分続く）</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="label-after">After｜議事録</span>
+      <div class="minutes">
+        <div class="meta"><span><b>日時：</b>2026年10月12日（月）10:00〜10:30</span><span><b>参加：</b>佐藤（進行）・鈴木・高橋</span></div>
+        <h3>■ 報告</h3>
+        <ul>
+          <li>今週の問い合わせは<b>42件</b>（先週31件、<b>約1.4倍</b>）</li>
+          <li>うち<b>17件</b>がサイトの予算シミュレーターから</li>
+          <li>金曜夜の問い合わせへの返信が月曜昼になり、お客さまから指摘あり</li>
+        </ul>
+        <h3>■ 決定事項</h3>
+        <ol>
+          <li>問い合わせフォームに<b>自動返信メール</b>を設定する</li>
+          <li>土日は<b>交代で午前中に1回</b>、問い合わせを確認する</li>
+          <li>シミュレーターの結果ページに「内見予約」ボタンを追加する</li>
+        </ol>
+        <h3>■ ToDo</h3>
+        <table>
+          <tr><th>内容</th><th>担当</th><th>期限</th></tr>
+          <tr><td>自動返信の文面を作る</td><td>鈴木</td><td>10/15</td></tr>
+          <tr><td>フォームに自動返信を設定</td><td>高橋</td><td>10/16</td></tr>
+          <tr><td>土日の当番表を作る</td><td>佐藤</td><td>10/17</td></tr>
+          <tr><td>ボタン追加をWeb担当に依頼</td><td>佐藤</td><td>10/17</td></tr>
+          <tr><td>返信が遅れたお客さまへのフォロー</td><td>高橋</td><td>10/14</td></tr>
+        </table>
+        <h3>■ 次回</h3>
+        <p>10月19日（月）10:00〜　自動返信を入れた後の、返信までの時間を確認する</p>
+      </div>
+    </section>
+  </div>
+
+  <section class="ai-box">
+    <h2>この見本の作り方（AIの使い方）</h2>
+    <ol>
+      <li>録音から文字起こしした文章をお預かりする想定です（文字起こしは、会議ツールの機能や専用のサービスを使います）</li>
+      <li>AI（Claude）で「報告・決定事項・ToDo・次回」の形に要約し、ToDoには担当と期限を付けます</li>
+      <li>数字・人名・日付は、元の文字起こしと1つずつ照らし合わせて人が確認します。あいまいな箇所は、ご担当者さまにうかがいます</li>
+    </ol>
+  </section>
+
+  <p class="foot">※ この資料はポートフォリオ用の見本です。会社名・人名・数字はすべて架空のものです。</p>
+</div></main>
+</body>
+</html>
