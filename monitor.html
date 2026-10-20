@@ -182,5 +182,20 @@ footer a{color:var(--muted)}
   <p>Biz Studio（ビズ・スタジオ）｜運営：株式会社FLCアドバンス（滋賀県草津市）｜<a href="https://flc-advance.com/">会社サイト</a>｜<a href="https://crowdworks.jp/public/employees/4429362">クラウドワークスのプロフィール</a>｜<a href="https://www.instagram.com/biz.studio_official/">Instagram</a>｜<a href="https://x.com/bizstudio_flc">X（旧Twitter）</a>｜<a href="https://www.facebook.com/profile.php?id=61595368205237">Facebook</a></p>
   <p>応募フォームでいただいた情報は、モニターのご案内と制作のご連絡にだけ使います。</p>
 </div></footer>
+<script>
+// プロフィールのリンクの印（?from=ig など）を、応募フォームの「この募集を何で知りましたか」に引き継ぐ
+(function () {
+  var map = { ig: 'Instagram', x: 'X', fb: 'Facebook', tt: 'TikTok', th: 'Threads', ad: 'Instagram・Facebook の広告', cw: 'クラウドワークス' };
+  var from = new URLSearchParams(location.search).get('from');
+  var label = from && map[from.toLowerCase()];
+  if (!label) return;
+  document.querySelectorAll('a[href*="docs.google.com/forms"]').forEach(function (a) {
+    var u = new URL(a.href);
+    u.searchParams.set('usp', 'pp_url');
+    u.searchParams.set('entry.952561893', label);
+    a.href = u.toString();
+  });
+})();
+</script>
 </body>
 </html>
