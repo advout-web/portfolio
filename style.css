@@ -185,6 +185,7 @@ section { padding: clamp(64px, 9vw, 120px) 0; }
 .meta p { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; line-height: 1.75; }
 
 .demo-note { margin-top: 48px; font-size: 12.5px; color: var(--muted); }
+.stats-note { margin: 14px 0 0; font-size: 12.5px; color: var(--muted); }
 
 /* ---------- services ---------- */
 .services { background: var(--white); }
@@ -233,6 +234,7 @@ section { padding: clamp(64px, 9vw, 120px) 0; }
 }
 .modal-body { padding: clamp(24px, 4vw, 44px); }
 .m-head .meta-top { font-size: 13px; }
+.m-head .m-note { display: block; margin-top: 6px; font-size: 12px; color: var(--muted); }
 .m-head h2 { font-size: clamp(24px, 3.4vw, 34px); margin-top: 4px; }
 .m-tabs { margin: 24px 0 28px; }
 .m-sec { padding: 0; }

@@ -121,7 +121,7 @@
           <p>${esc(descFor(it))}</p>
         </div>
       </a>`).join("");
-    const unit = view === "brand" ? "ブランド（各3点）" : "点";
+    const unit = view === "brand" ? "ブランド（各3点・すべて架空の会社・お店を想定）" : "点（すべて架空の会社・お店を想定）";
     $("#count").textContent = `${VIEW_LABEL[view]}：${list.length}${unit}`;
   }
 
@@ -156,6 +156,7 @@
       <div class="m-head">
         <div class="meta-top"><span>${esc(it.industryName)}</span><span>${esc(it.taste)}</span></div>
         <h2 id="mTitle">${esc(it.name)}</h2>
+        <small class="m-note">※ 架空の会社・お店を想定した見本です</small>
       </div>
       <div class="tabs m-tabs" role="tablist" aria-label="制作物">
         ${tabs.map((t) => `<button role="tab" data-mtab="${t}" aria-selected="${t === tab}">${VIEW_LABEL[t]}</button>`).join("")}
@@ -166,7 +167,7 @@
         <p class="m-desc">${esc(it.siteDesc)}</p>
         <a class="m-shot" href="${it.siteUrl}" target="_blank" rel="noopener"><img src="${img.site(it)}" alt="${esc(it.name)}のWebサイトのトップページ"></a>
         <div class="m-actions">
-          <a class="btn" href="${it.siteUrl}" target="_blank" rel="noopener">実際のサイトを見る</a>
+          <a class="btn" href="${it.siteUrl}" target="_blank" rel="noopener">デモサイトを見る</a>
           <small>PC・スマートフォンの両方に対応しています。新しいタブで開きます。</small>
         </div>
       </section>
