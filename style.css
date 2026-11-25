@@ -53,7 +53,11 @@ p { margin: 0; text-wrap: pretty; }
 .nav a { text-decoration: none; color: var(--ink-2); }
 .nav a:hover { color: var(--accent-ink); }
 .logo, .nav a { white-space: nowrap; }
-@media (max-width: 640px) { .nav { gap: 16px; font-size: 13px; } }
+@media (max-width: 640px) {
+  .nav { gap: 6px; font-size: 13px; }
+  /* 押せる範囲を広げる（見た目の文字の大きさは変えない・2026-11-25） */
+  .nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px; }
+}
 @media (max-width: 440px) { .nav a:last-child { display: none; } }
 
 /* ---------- hero ---------- */
@@ -142,7 +146,12 @@ section { padding: clamp(64px, 9vw, 120px) 0; }
 .chips button:hover { border-color: var(--ink-2); }
 .chips button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent-ink); background: #EEF1FF; }
 .result-count { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
-@media (max-width: 640px) { .tabs button { padding: 8px 13px; font-size: 13px; } }
+@media (max-width: 640px) {
+  .tabs button { padding: 8px 13px; font-size: 13px; }
+  /* スマホでは6つのタブを3つずつ2段に並べ、横にずらさなくても全部見えるようにする（2026-11-25） */
+  .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; width: 100%; border-radius: 22px; overflow: visible; }
+  .tabs button { padding: 9px 4px; text-align: center; }
+}
 
 /* ---------- grid ---------- */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px 24px; }
