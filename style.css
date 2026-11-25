@@ -226,7 +226,8 @@ section { padding: clamp(64px, 9vw, 120px) 0; }
 .site-footer { padding: 32px 0; border-top: 1px solid var(--line); }
 .site-footer .wrap { display: flex; justify-content: space-between; align-items: center; }
 .site-footer small { color: var(--muted); font-family: var(--en); }
-.site-footer .footer-operator { font-family: inherit; }
+.site-footer .footer-operator, .site-footer .footer-links { font-family: inherit; }
+.site-footer .footer-links a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .site-footer .footer-operator a, .hero-operator a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .site-footer .wrap { flex-wrap: wrap; gap: 8px 24px; }
 .hero-operator { margin-top: 12px; font-size: 14px; color: var(--muted); }
